@@ -1,0 +1,9 @@
+seed: 42
+
+data:
+  lookback: 60
+  horizon: 20
+
+train:
+  lr: 0.001
+  epochs: 50

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f16a6194-d4cf-4408-8959-fcd966937ad3" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../0128song/check_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/convert_indices_to_map_phase.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/debug_show.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/factor_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/generate_map_phase.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/inspect_map_phase.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/io/bokeh.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/log.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/pattern/time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/patterntime.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/rolling.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/savetab.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/stats.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/jd/tab.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/list_out.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/produce_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/regen_map_phase_daily.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/regen_map_phase_dense.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../0128song/run_draw_minbar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../20251117指数/.idea/20251117指数.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../202512月/.idea/202512月.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../202512月/波动率计算.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/TCN.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/copilot.data.migration.agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/copilot.data.migration.ask.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/0105.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/TCN train.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/TCN-0113.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/factor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../TCN/outputs/.idea/outputs.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/TCN_project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../init_project.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/features/arima.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/features/feature_engineering.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../models/arima.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Interference.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulid_features.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../trainers/trainer_classification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../trainers/trainer_regression.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/scripts/smoke_run.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/cluster.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/data/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/data/io.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/data/preprocess.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/infer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/models/transformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Transformer/Regime/src/train.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/.idea/表格加工.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/IC loss.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/JC.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/LSTM1226.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/TCN.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/factor extraction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/lstm.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/lstm_regime.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../arima训练/表格加工/滚动训练lstm.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../报表/报表1.41/smoke_run.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../期货指数/read_parquet_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../202512月/stable arima.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../202512月/stable arima.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../报表/报表1.41/factor_report1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../报表/报表1.41/factor_report1.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="39CNdXJMHqsybIFWOOZx8aHVF1m" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/yylc0/Desktop/arbeite/TCN_project/project/scripts",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PY-252.26830.99" />
+        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="f16a6194-d4cf-4408-8959-fcd966937ad3" name="更改" comment="" />
+      <created>1770196180621</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1770196180621</updated>
+      <workItem from="1770196181900" duration="5000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
