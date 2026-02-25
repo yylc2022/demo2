@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pathlib import Path
 import pandas as pd
 from datasets.timeseries_dataset import TimeSeriesDataset
@@ -9,7 +11,7 @@ from models.tcn import TCN
 from models.lstm import LSTMModel
 
 ROOT = Path(__file__).resolve().parents[1]
-data_path = ROOT / "data" / "raw" / "000852.SH-行情统计-20251203.xlsx"
+data_path = ROOT / "data" / "raw" / "000852.SH.csv"
 
 
 BATCH_SIZE=32
@@ -19,7 +21,7 @@ LOOKBACK = 50
 
 
 
-df = pd.read_excel(data_path)
+df = pd.read_csv(data_path)
 #df = pd.read_csv(ROOT / "data" / "processed" / "feat.csv")
 df=generate_features(df)
 df = df.dropna().reset_index(drop=True)
