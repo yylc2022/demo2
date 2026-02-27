@@ -4,7 +4,7 @@ import torch
 from pathlib import Path
 import sys
 import os
-
+import save_files_parquet
 # 基础路径配置
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT))
@@ -50,9 +50,9 @@ def load_model():
 def run_inference_for_file(file_path, model):
     """对单个文件运行推理并返��带有预测的DataFrame"""
     try:
-        # 处理 Excel 文件
-        df_raw = pd.read_excel(file_path)
-        
+        # 处理 CSV 文件
+        df_raw = pd.read_csv(file_path)
+
         # 解决 '交易日期' 既是 index 又是 column 的歧义问题
         # 如果 index 名字也是 '交易日期'，先重置索引
         if df_raw.index.name == '交易日期':
@@ -69,11 +69,11 @@ def run_inference_for_file(file_path, model):
 
         # 1. 生成特征 (此过程会排序、去头、并生成归一化后的 'ret_1' 等特征)
         df_feat = generate_features(df_raw)
+        if 'gsid' in df_raw.columns:
+            df_feat['gsid'] = df_raw['gsid']
 
         # 2. 计算原始未归一化的对数收益率 (用于 Ground Truth - 放在 CSV 'actual' 列)
         # 注意: generate_features 已经按时间排序并重置索引
-        # 使用 'close' 列计算原始收益率
-        df_feat['raw_logret'] = np.log(df_feat['close'] / df_feat['close'].shift(1))
 
         # 确保 '交易日期' 为 datetime 类型
         df_feat['交易日期'] = pd.to_datetime(df_feat['交易日期'])
@@ -96,7 +96,7 @@ def run_inference_for_file(file_path, model):
     valid_indices = range(LOOKBACK, len(df_feat))
 
     # windows list of (T, F)
-    windows = [feature_matrix[i - LOOKBACK: i] for i in valid_indices]
+    windows = [feature_matrix[i - LOOKBACK: i-1] for i in valid_indices]
 
     if not windows:
         return None
@@ -121,8 +121,9 @@ def run_inference_for_file(file_path, model):
 
     results = pd.DataFrame({
         'date': df_feat['交易日期'].iloc[LOOKBACK:].values,
-        'prediction': pd.Series(all_preds, index=df_feat.index[LOOKBACK:]).shift(1).values,
-        'actual': df_feat['raw_logret'].iloc[LOOKBACK:].values
+        'prediction': all_preds,
+        'actual': df_feat['logret'].iloc[LOOKBACK:].values,
+        'gsid': df_feat['gsid'].iloc[LOOKBACK:].values if 'gsid' in df_feat.columns else 0
     })
 
     return results
@@ -131,56 +132,86 @@ def run_inference_for_file(file_path, model):
 def main():
     """主程序：推理 raw 文件夹里的所有指数"""
     model = load_model()
-    all_files = list(RAW_DATA_DIR.glob('*.xlsx'))
+    all_files = list(RAW_DATA_DIR.glob('*.csv'))
 
     if not all_files:
-        print(f"在 {RAW_DATA_DIR} 中没有找到 .xlsx 文件")
+        print(f"在 {RAW_DATA_DIR} 中没有找到 .csv 文件")
         return
 
-    pred_dfs = []
-    actual_dfs = []
+    # 用于存储最终 parquet 格式的 df
+    parquet_dfs = []
+    # 用于存储宽表格式的 df
+    pred_dfs_wide = []
+    actual_dfs_wide = []
 
     for file_path in all_files:
-        # 提取指数名称，例如 000016.SH
-        variety = file_path.name.split('-')[0]
+        variety = file_path.stem
         print(f"正在处理: {variety} ({file_path.name}) ...")
         sys.stdout.flush()
 
         res = run_inference_for_file(file_path, model)
         if res is not None:
-            # 准备预测值 DF
-            p_df = res[['date', 'prediction']].rename(columns={'prediction': variety})
-            p_df = p_df.set_index('date')
-            pred_dfs.append(p_df)
+            # --- 准备 Parquet 长表数据 ---
+            parquet_df = pd.DataFrame({
+                'gsid': res['gsid'].astype(np.int32),
+                'gudt': (res['date'].dt.strftime('%Y%m%d').astype(np.int64)) * 1000000000 + 190000000,
+                'tradeDate': res['date'].dt.strftime('%Y%m%d').astype(np.int32),
+                'icode': variety,
+                'predLogreturn': res['prediction'].astype(np.float64)
+            })
+            parquet_df['icode'] = parquet_df['icode'].astype('S40')
+            parquet_dfs.append(parquet_df)
 
-            # 准备真实收益 DF
-            a_df = res[['date', 'actual']].rename(columns={'actual': variety})
-            a_df = a_df.set_index('date')
-            actual_dfs.append(a_df)
+            # --- 准备原始宽表 CSV 数据 ---
+            p_df_wide = res[['date', 'prediction']].rename(columns={'prediction': variety}).set_index('date')
+            pred_dfs_wide.append(p_df_wide)
+
+            a_df_wide = res[['date', 'actual']].rename(columns={'actual': variety}).set_index('date')
+            actual_dfs_wide.append(a_df_wide)
+
             print(f"  {variety} 处理完成, 样本数: {len(res)}")
         else:
             print(f"  {variety} 处理失败")
         sys.stdout.flush()
 
-    if not pred_dfs:
+    if not parquet_dfs:
         print("没有生成任何推理结果。")
         return
 
-    # 合并所有品种 (外连接，按日期对齐)
-    final_preds = pd.concat(pred_dfs, axis=1, sort=True)
-    final_actuals = pd.concat(actual_dfs, axis=1, sort=True)
+    # --- 保存 Parquet 文件 ---
+    final_parquet = pd.concat(parquet_dfs, ignore_index=True)
 
-    # 保存
+    # 重命名并转换类型
+    final_parquet = final_parquet.rename(columns={
+        'gsid': '0',
+        'gudt': '1',
+        'tradeDate': '9',
+        'icode': '13',
+        'predLogreturn': '3000010'
+    })
+    final_parquet = final_parquet.astype(str)
+
+    print(final_parquet.dtypes)
+    parquet_save_path = OUTPUT_DIR / "inference_predictions.parquet"
+
+    #final_parquet.to_parquet(parquet_save_path, index=False)
+    save_files_parquet.save(final_parquet,parquet_save_path)
+    print(f"Parquet 预测文件已保存至: {parquet_save_path}")
+
+    # --- 保存原始 CSV 文件 ---
+    final_preds_wide = pd.concat(pred_dfs_wide, axis=1, sort=True)
+    final_actuals_wide = pd.concat(actual_dfs_wide, axis=1, sort=True)
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     pred_save_path = OUTPUT_DIR / "inference_predictions.csv"
     actual_save_path = OUTPUT_DIR / "inference_actual_returns.csv"
 
-    final_preds.to_csv(pred_save_path)
-    final_actuals.to_csv(actual_save_path)
+    final_preds_wide.to_csv(pred_save_path)
+    final_actuals_wide.to_csv(actual_save_path)
 
     print(f"\n推理完成！")
-    print(f"模型预测值已保存至: {pred_save_path}")
-    print(f"真实收益率已保存至: {actual_save_path}")
+    print(f"模型预测值 (CSV) 已保存至: {pred_save_path}")
+    print(f"真实收益率 (CSV) 已保存至: {actual_save_path}")
 
 
 if __name__ == "__main__":
